@@ -11,6 +11,9 @@
 		9BC644D82C0F8A1400DBB7B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC644D72C0F8A1400DBB7B5 /* ContentView.swift */; };
 		9BC644DA2C0F8A1500DBB7B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */; };
 		9BC644DD2C0F8A1500DBB7B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BC644DC2C0F8A1500DBB7B5 /* Preview Assets.xcassets */; };
+		9BC644E52C0F8BDD00DBB7B5 /* StepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC644E42C0F8BDD00DBB7B5 /* StepsView.swift */; };
+		9BC644E82C0F915C00DBB7B5 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC644E72C0F915C00DBB7B5 /* HealthKit.framework */; };
+		9BC644EA2C0F917100DBB7B5 /* HealthKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC644E92C0F917100DBB7B5 /* HealthKitUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,10 @@
 		9BC644D72C0F8A1400DBB7B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BC644DC2C0F8A1500DBB7B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9BC644E42C0F8BDD00DBB7B5 /* StepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsView.swift; sourceTree = "<group>"; };
+		9BC644E72C0F915C00DBB7B5 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		9BC644E92C0F917100DBB7B5 /* HealthKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKitUI.framework; path = System/Library/Frameworks/HealthKitUI.framework; sourceTree = SDKROOT; };
+		9BC644EB2C0F929A00DBB7B5 /* ToeSteps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToeSteps.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +33,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BC644E82C0F915C00DBB7B5 /* HealthKit.framework in Frameworks */,
+				9BC644EA2C0F917100DBB7B5 /* HealthKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +46,7 @@
 			children = (
 				9BC644D42C0F8A1400DBB7B5 /* ToeSteps */,
 				9BC644D32C0F8A1400DBB7B5 /* Products */,
+				9BC644E62C0F915C00DBB7B5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,6 +61,8 @@
 		9BC644D42C0F8A1400DBB7B5 /* ToeSteps */ = {
 			isa = PBXGroup;
 			children = (
+				9BC644EB2C0F929A00DBB7B5 /* ToeSteps.entitlements */,
+				9BC644E32C0F8BCF00DBB7B5 /* Views */,
 				9BC644D52C0F8A1400DBB7B5 /* ToeStepsApp.swift */,
 				9BC644D72C0F8A1400DBB7B5 /* ContentView.swift */,
 				9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */,
@@ -65,6 +77,23 @@
 				9BC644DC2C0F8A1500DBB7B5 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9BC644E32C0F8BCF00DBB7B5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9BC644E42C0F8BDD00DBB7B5 /* StepsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9BC644E62C0F915C00DBB7B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BC644E92C0F917100DBB7B5 /* HealthKitUI.framework */,
+				9BC644E72C0F915C00DBB7B5 /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +168,7 @@
 			files = (
 				9BC644D82C0F8A1400DBB7B5 /* ContentView.swift in Sources */,
 				9BC644D62C0F8A1400DBB7B5 /* ToeStepsApp.swift in Sources */,
+				9BC644E52C0F8BDD00DBB7B5 /* StepsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,22 +299,26 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ToeSteps/ToeSteps.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ToeSteps/Preview Content\"";
 				DEVELOPMENT_TEAM = KP3ZH5K2SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "ToeSteps needs to access your health information to function.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "ToeSteps needs access to function.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantperry.ToeSteps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -298,22 +332,26 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ToeSteps/ToeSteps.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ToeSteps/Preview Content\"";
 				DEVELOPMENT_TEAM = KP3ZH5K2SY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "ToeSteps needs to access your health information to function.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "ToeSteps needs access to function.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantperry.ToeSteps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

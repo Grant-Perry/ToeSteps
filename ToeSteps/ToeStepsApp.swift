@@ -13,7 +13,7 @@ import SwiftUI
 struct ToeStepsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StepsView()
         }
     }
 }
