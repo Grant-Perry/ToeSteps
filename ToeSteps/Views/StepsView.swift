@@ -1,30 +1,24 @@
-//   StepsView.swift
-//   ToeSteps
-//
-//   Created by: Grant Perry on 6/4/24 at 1:52 PM
-//     Modified: 
-//
-//  Copyright © 2024 Delicious Studios, LLC. - Grant Perry
-//
-
 import SwiftUI
-import HealthKit
 
 struct StepsView: View {
-   @State private var startDate: Date? = nil
-   @State private var endDate: Date? = nil
-   @State private var stepsData: [Date: Double] = [:]
+   @StateObject private var viewModel = StepsViewModel()
+
+   @State private var startDate: Date = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date())!
+   @State private var endDate: Date = Date()
    @State private var showingStartDatePicker = false
    @State private var showingEndDatePicker = false
-   private let healthStore = HKHealthStore()
    private var resultSize: CGFloat = 19.0
    private var totSize: CGFloat = 18.0
 
    var body: some View {
 	  VStack {
-		 Text("Toe's Steps")
+		 Text("mySteps")
 			.font(.system(size: 45))
-			.foregroundColor(.blue)
+			.foregroundColor(.green)
+		 Text("Today's Steps: \(formattedNumber(viewModel.todaySteps))")
+			.font(.system(size: totSize))
+			.foregroundColor(.pink)
+			.padding(.bottom, 10)
 		 if totalSteps() > 0 {
 			Text("Total Steps: \(formattedNumber(totalSteps()))")
 			   .font(.system(size: totSize))
@@ -33,7 +27,7 @@ struct StepsView: View {
 		 }
 
 		 Button(action: { showingStartDatePicker.toggle() }) {
-			Text(startDate == nil ? "Start Date" : "\(dateFormatter.string(from: startDate!))")
+			Text("\(dateFormatter.string(from: startDate))")
 			   .padding()
 			   .frame(width: 200, height: 40)
 			   .background(Color.blue.gradient)
@@ -42,14 +36,11 @@ struct StepsView: View {
 		 }
 		 .sheet(isPresented: $showingStartDatePicker) {
 			VStack {
-			   DatePicker("Start Date", selection: Binding(
-				  get: { self.startDate ?? Date() },
-				  set: { self.startDate = $0 }
-			   ), displayedComponents: .date)
-			   .datePickerStyle(GraphicalDatePickerStyle())
-			   .labelsHidden()
-			   .frame(width: 400)
-			   .clipped()
+			   DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+				  .datePickerStyle(GraphicalDatePickerStyle())
+				  .labelsHidden()
+				  .frame(width: 400)
+				  .clipped()
 			   Button("Go") {
 				  showingStartDatePicker = false
 			   }
@@ -58,7 +49,7 @@ struct StepsView: View {
 		 }
 
 		 Button(action: { showingEndDatePicker.toggle() }) {
-			Text(endDate == nil ? "End Date" : "\(dateFormatter.string(from: endDate!))")
+			Text("\(dateFormatter.string(from: endDate))")
 			   .padding()
 			   .frame(width: 200, height: 40)
 			   .background(Color.blue.gradient)
@@ -67,14 +58,11 @@ struct StepsView: View {
 		 }
 		 .sheet(isPresented: $showingEndDatePicker) {
 			VStack {
-			   DatePicker("End Date", selection: Binding(
-				  get: { self.endDate ?? Date() },
-				  set: { self.endDate = $0 }
-			   ), displayedComponents: .date)
-			   .datePickerStyle(GraphicalDatePickerStyle())
-			   .labelsHidden()
-			   .frame(width: 400)
-			   .clipped()
+			   DatePicker("End Date", selection: $endDate, displayedComponents: .date)
+				  .datePickerStyle(GraphicalDatePickerStyle())
+				  .labelsHidden()
+				  .frame(width: 400)
+				  .clipped()
 			   Button("Go") {
 				  showingEndDatePicker = false
 			   }
@@ -82,12 +70,10 @@ struct StepsView: View {
 			}
 		 }
 
-		 Button(action: fetchStepsData) {
-			Text("Fetch Steps Data")
+		 if viewModel.isLoading {
+			ProgressView()
 			   .padding()
-			   .background(Color.blue.gradient)
-			   .foregroundColor(.white)
-			   .cornerRadius(10)
+			   .frame(width: 200, height: 40)
 		 }
 
 		 List {
@@ -102,7 +88,7 @@ struct StepsView: View {
 			   .frame(maxWidth: .infinity)
 			   .foregroundColor(.white)
 			   .background(Color.blue.gradient)) {
-				  ForEach(stepsData.sorted(by: { $0.key < $1.key }), id: \.key) { date, steps in
+				  ForEach(viewModel.stepsData.sorted(by: { $0.key < $1.key }), id: \.key) { date, steps in
 					 HStack {
 						Text("\(dayMonthFormatter.string(from: date))")
 						   .frame(width: 100, alignment: .leading)
@@ -113,7 +99,6 @@ struct StepsView: View {
 						   .padding(.trailing)
 						   .font(.system(size: resultSize))
 						   .minimumScaleFactor(0.7)
-
 						Text("\(deltaStepsForDate(date: date))")
 						   .foregroundColor(colorForDelta(date: date))
 						   .frame(width: 100, alignment: .leading)
@@ -124,69 +109,41 @@ struct StepsView: View {
 					 .frame(maxWidth: .infinity, alignment: .trailing)
 				  }
 			   }
-//			   .listRowBackground(Color.gray)
 		 }
-	  }
+		 .onAppear {
+			viewModel.fetchStepsData()
+		 }
+
+		 Button(action: viewModel.fetchStepsData) {
+			Text("Fetch Steps Data")
+			   .padding()
+			   .background(Color.blue.gradient)
+			   .foregroundColor(.white)
+			   .cornerRadius(10)
+		 }
+		 .padding(.top)
 		 VStack(alignment: .center, spacing: 0) {
 			Text("Version: \(getAppVersion())")
 			   .font(.system(size: 10))
 		 }
-	  .onAppear(perform: requestAuthorization)
+	  }
+	  .preferredColorScheme(.dark)
    }
 
-   private func requestAuthorization() {
-	  let typesToShare: Set<HKSampleType> = []
-	  let typesToRead: Set<HKObjectType> = [HKObjectType.quantityType(forIdentifier: .stepCount)!]
-
-	  healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
-		 if !success {
-			// Handle the error here.
-			print("Authorization failed")
-		 }
-	  }
+   private func totalSteps() -> Double {
+	  return viewModel.stepsData.values.reduce(0, +).rounded()
    }
 
-   private func fetchStepsData() {
-	  guard let startDate = startDate, let endDate = endDate else {
-		 return
-	  }
-
-	  let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
-	  let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
-
-	  let query = HKStatisticsCollectionQuery(quantityType: stepsQuantityType,
-											  quantitySamplePredicate: predicate,
-											  options: .cumulativeSum,
-											  anchorDate: startDate,
-											  intervalComponents: DateComponents(day: 1))
-
-	  query.initialResultsHandler = { _, result, error in
-		 guard let result = result else {
-			// Handle the error here.
-			print("Failed to fetch steps data")
-			return
-		 }
-
-		 var newStepsData: [Date: Double] = [:]
-		 result.enumerateStatistics(from: startDate, to: endDate) { (statistics, _) in
-			if let sum = statistics.sumQuantity() {
-			   let steps = sum.doubleValue(for: HKUnit.count())
-			   newStepsData[statistics.startDate] = steps
-			}
-		 }
-
-		 DispatchQueue.main.async {
-			self.stepsData = newStepsData
-		 }
-	  }
-
-	  healthStore.execute(query)
+   private func formattedNumber(_ number: Double) -> String {
+	  let numberFormatter = NumberFormatter()
+	  numberFormatter.numberStyle = .decimal
+	  return numberFormatter.string(from: NSNumber(value: Int(number))) ?? "0"
    }
 
    private func deltaStepsForDate(date: Date) -> String {
 	  guard let previousDate = Calendar.current.date(byAdding: .day, value: -1, to: date),
-			let previousSteps = stepsData[previousDate],
-			let currentSteps = stepsData[date] else {
+			let previousSteps = viewModel.stepsData[previousDate],
+			let currentSteps = viewModel.stepsData[date] else {
 		 return "N/A"
 	  }
 
@@ -196,12 +153,12 @@ struct StepsView: View {
 
    private func colorForDelta(date: Date) -> Color {
 	  guard let previousDate = Calendar.current.date(byAdding: .day, value: -1, to: date),
-			let previousSteps = stepsData[previousDate],
-			let currentSteps = stepsData[date] else {
+			let previousSteps = viewModel.stepsData[previousDate],
+			let currentSteps = viewModel.stepsData[date] else {
 		 return .black
 	  }
 
-	  return currentSteps > previousSteps ? .green : .red
+	  return currentSteps > previousSteps ? .green : .white
    }
 
    private var dayMonthFormatter: DateFormatter {
@@ -216,16 +173,6 @@ struct StepsView: View {
 	  return formatter
    }
 
-   private func totalSteps() -> Double {
-	  return stepsData.values.reduce(0, +).rounded()
-   }
-
-   private func formattedNumber(_ number: Double) -> String {
-	  let numberFormatter = NumberFormatter()
-	  numberFormatter.numberStyle = .decimal
-	  return numberFormatter.string(from: NSNumber(value: Int(number))) ?? "0"
-   }
-
    func getAppVersion() -> String {
 	  if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
 		 return version
@@ -233,11 +180,10 @@ struct StepsView: View {
 		 return "Unknown version"
 	  }
    }
-
 }
 
-
-
-#Preview {
-    StepsView()
+struct StepsView_Previews: PreviewProvider {
+   static var previews: some View {
+	  StepsView()
+   }
 }

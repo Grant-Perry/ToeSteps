@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,20 @@
 		9BC644EB2C0F929A00DBB7B5 /* ToeSteps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToeSteps.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9B10F62B2C2B7724008EB697 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				StepsViewModel.swift,
+			);
+			target = 9BC644D12C0F8A1400DBB7B5 /* ToeSteps */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9B10F6282C2B76A3008EB697 /* ViewModel */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B10F62B2C2B7724008EB697 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ViewModel; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		9BC644CF2C0F8A1400DBB7B5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -44,6 +58,7 @@
 		9BC644C92C0F8A1400DBB7B5 = {
 			isa = PBXGroup;
 			children = (
+				9B10F6282C2B76A3008EB697 /* ViewModel */,
 				9BC644D42C0F8A1400DBB7B5 /* ToeSteps */,
 				9BC644D32C0F8A1400DBB7B5 /* Products */,
 				9BC644E62C0F915C00DBB7B5 /* Frameworks */,
@@ -318,7 +333,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantperry.ToeSteps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -351,7 +366,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantperry.ToeSteps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
