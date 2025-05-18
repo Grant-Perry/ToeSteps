@@ -1,18 +1,19 @@
 import SwiftUI
+import Foundation
 
 struct StepsCard: View {
    let title: String
    let value: String
    let color: Color
    let icon: String  // Add icon property
-
+   
    var body: some View {
 	  VStack(spacing: 12) {
 		 // Add icon at the top
 		 Image(systemName: icon)
 			.font(.system(size: 24))
 			.foregroundColor(color)
-
+		 
 		 Text(title)
 			.font(.system(size: 16, weight: .medium))
 			.foregroundColor(.gray)
@@ -29,11 +30,11 @@ struct StepsCard: View {
 
 struct StepsView: View {
    @StateObject private var stepsViewModel = StepsViewModel()
-
+   
    @State private var showingDateRangePicker = false
    private var resultSize: CGFloat = 19.0
    private var totSize: CGFloat = 22.0
-
+   
    var body: some View {
 	  ZStack {
 		 // Background gradient
@@ -41,7 +42,7 @@ struct StepsView: View {
 						startPoint: .top,
 						endPoint: .bottom)
 		 .ignoresSafeArea()
-
+		 
 		 VStack(spacing: 20) {
 			if stepsViewModel.isLoading {
 			   ProgressView("Loading Steps Data...")
@@ -59,7 +60,7 @@ struct StepsView: View {
 					 .foregroundColor(.white)
 			   }
 			   .padding(.top, 20)
-
+			   
 			   // Updated date range button
 			   Button(action: { showingDateRangePicker = true }) {
 				  HStack {
@@ -78,19 +79,11 @@ struct StepsView: View {
 			   .sheet(isPresented: $showingDateRangePicker) {
 				  NavigationView {
 					 VStack {
-						DatePicker("Start Date",
-								   selection: $stepsViewModel.selectedStartDate,
-								   in: ...stepsViewModel.selectedEndDate,
-								   displayedComponents: [.date])
-						.datePickerStyle(.graphical)
-						.padding()
-
-						DatePicker("End Date",
-								   selection: $stepsViewModel.selectedEndDate,
-								   in: stepsViewModel.selectedStartDate...,
-								   displayedComponents: [.date])
-						.datePickerStyle(.graphical)
-						.padding()
+						DateRangeCalendar(
+						   startDate: $stepsViewModel.selectedStartDate,
+						   endDate: $stepsViewModel.selectedEndDate
+						)
+						Spacer()
 					 }
 					 .navigationTitle("Select Date Range")
 					 .navigationBarItems(
@@ -102,10 +95,11 @@ struct StepsView: View {
 						   showingDateRangePicker = false
 						}
 					 )
+					 .padding()
 				  }
 				  .preferredColorScheme(.dark)
 			   }
-
+			   
 			   // Updated stats cards
 			   HStack(spacing: 15) {
 				  StepsCard(
@@ -114,7 +108,7 @@ struct StepsView: View {
 					 color: .green,
 					 icon: "figure.walk"
 				  )
-
+				  
 				  if totalSteps() > 0 {
 					 StepsCard(
 						title: "Total Steps",
@@ -125,7 +119,7 @@ struct StepsView: View {
 				  }
 			   }
 			   .padding(.horizontal)
-
+			   
 			   // Updated steps history
 			   List {
 				  Section(header: HStack {
@@ -146,7 +140,7 @@ struct StepsView: View {
 							  }
 							  .frame(width: 100, alignment: .leading)
 							  .font(.system(size: 16))
-
+							  
 							  HStack(spacing: 8) {
 								 Image(systemName: "figure.walk")
 									.foregroundColor(.green)
@@ -154,7 +148,7 @@ struct StepsView: View {
 							  }
 							  .frame(width: 100, alignment: .trailing)
 							  .font(.system(size: 16, weight: .medium))
-
+							  
 							  HStack(spacing: 4) {
 								 Image(systemName: steps > (stepsViewModel.stepsData[Calendar.current.date(byAdding: .day, value: -1, to: date)!] ?? 0) ? "arrow.up.circle.fill" : "arrow.down.circle.fill")
 								 Text(deltaStepsForDate(date: date))
@@ -172,7 +166,7 @@ struct StepsView: View {
 					 }
 			   }
 			   .scrollContentBackground(.hidden)
-
+			   
 			   // Updated refresh button
 			   Button(action: { stepsViewModel.fetchStepsData() }) {
 				  HStack(spacing: 12) {
@@ -187,7 +181,7 @@ struct StepsView: View {
 				  .cornerRadius(25)
 			   }
 			   .padding(.vertical)
-
+			   
 			   // Updated version info
 			   HStack {
 				  Image(systemName: "info.circle")
@@ -203,56 +197,56 @@ struct StepsView: View {
 	  }
 	  .preferredColorScheme(.dark)
    }
-
+   
    private var dateRangeText: String {
 	  let formatter = DateFormatter()
 	  formatter.dateStyle = .short
 	  return "\(formatter.string(from: stepsViewModel.selectedStartDate)) - \(formatter.string(from: stepsViewModel.selectedEndDate))"
    }
-
+   
    private func totalSteps() -> Double {
 	  return stepsViewModel.stepsData.values.reduce(0, +).rounded()
    }
-
+   
    private func formattedNumber(_ number: Double) -> String {
 	  let numberFormatter = NumberFormatter()
 	  numberFormatter.numberStyle = .decimal
 	  return numberFormatter.string(from: NSNumber(value: Int(number))) ?? "0"
    }
-
+   
    private func deltaStepsForDate(date: Date) -> String {
 	  guard let previousDate = Calendar.current.date(byAdding: .day, value: -1, to: date),
 			let previousSteps = stepsViewModel.stepsData[previousDate],
 			let currentSteps = stepsViewModel.stepsData[date] else {
 		 return ""
 	  }
-
+	  
 	  let delta = abs(currentSteps - previousSteps)
 	  return formattedNumber(delta)
    }
-
+   
    private func colorForDelta(date: Date) -> Color {
 	  guard let previousDate = Calendar.current.date(byAdding: .day, value: -1, to: date),
 			let previousSteps = stepsViewModel.stepsData[previousDate],
 			let currentSteps = stepsViewModel.stepsData[date] else {
 		 return .black
 	  }
-
+	  
 	  return currentSteps > previousSteps ? .green : .red
    }
-
+   
    private var dayMonthFormatter: DateFormatter {
 	  let formatter = DateFormatter()
 	  formatter.dateFormat = "E - M/d"
 	  return formatter
    }
-
+   
    private var dateFormatter: DateFormatter {
 	  let formatter = DateFormatter()
 	  formatter.dateStyle = .medium
 	  return formatter
    }
-
+   
    func getAppVersion() -> String {
 	  if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
 		 return version
