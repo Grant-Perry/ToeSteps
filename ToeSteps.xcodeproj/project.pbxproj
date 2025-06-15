@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B8468982DFF6E2700B9E3D7 /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468942DFF6E2700B9E3D7 /* GoalDetailView.swift */; };
+		9B8468992DFF6E2700B9E3D7 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468962DFF6E2700B9E3D7 /* InsightsView.swift */; };
+		9B84689A2DFF6E2700B9E3D7 /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468922DFF6E2700B9E3D7 /* AchievementsView.swift */; };
+		9B84689B2DFF6E2700B9E3D7 /* AddGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468932DFF6E2700B9E3D7 /* AddGoalView.swift */; };
+		9B84689C2DFF6E2700B9E3D7 /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468952DFF6E2700B9E3D7 /* GoalsView.swift */; };
+		9B84689D2DFF6E2700B9E3D7 /* StepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468972DFF6E2700B9E3D7 /* StepsView.swift */; };
 		9BC644DA2C0F8A1500DBB7B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */; };
 		9BC644DD2C0F8A1500DBB7B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BC644DC2C0F8A1500DBB7B5 /* Preview Assets.xcassets */; };
 		9BC644E82C0F915C00DBB7B5 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC644E72C0F915C00DBB7B5 /* HealthKit.framework */; };
@@ -17,6 +23,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B8468922DFF6E2700B9E3D7 /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
+		9B8468932DFF6E2700B9E3D7 /* AddGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalView.swift; sourceTree = "<group>"; };
+		9B8468942DFF6E2700B9E3D7 /* GoalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailView.swift; sourceTree = "<group>"; };
+		9B8468952DFF6E2700B9E3D7 /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
+		9B8468962DFF6E2700B9E3D7 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
+		9B8468972DFF6E2700B9E3D7 /* StepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsView.swift; sourceTree = "<group>"; };
 		9BC644D22C0F8A1400DBB7B5 /* ToeSteps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToeSteps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BC644DC2C0F8A1500DBB7B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -34,6 +46,21 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				StepsViewModel.swift,
+			);
+			target = 9BC644D12C0F8A1400DBB7B5 /* ToeSteps */;
+		};
+		9B8468A42DFF6E7300B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Model/GoalManager.swift,
+				ViewModel/GoalModel.swift,
+			);
+			target = 9BC644D12C0F8A1400DBB7B5 /* ToeSteps */;
+		};
+		9B8468AD2DFF6ECF00B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Model/SocialManager.swift,
 			);
 			target = 9BC644D12C0F8A1400DBB7B5 /* ToeSteps */;
 		};
@@ -70,6 +97,8 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9B10F6282C2B76A3008EB697 /* ViewModel */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B10F62B2C2B7724008EB697 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ViewModel; sourceTree = "<group>"; };
+		9B84689E2DFF6E5300B9E3D7 /* Goals */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B8468A42DFF6E7300B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Goals; sourceTree = "<group>"; };
+		9B8468A72DFF6E9E00B9E3D7 /* Social */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B8468AD2DFF6ECF00B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Social; sourceTree = "<group>"; };
 		9BDA90132DDA4000003F7172 /* LoadScreen */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LoadScreen; sourceTree = "<group>"; };
 		9BDA90182DDA4030003F7172 /* Ext */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9BDA901A2DDA404B003F7172 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Ext; sourceTree = "<group>"; };
 		9BDA901C2DDA408F003F7172 /* Data */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9BDA901E2DDA40A2003F7172 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Data; sourceTree = "<group>"; };
@@ -110,6 +139,8 @@
 		9BC644D42C0F8A1400DBB7B5 /* ToeSteps */ = {
 			isa = PBXGroup;
 			children = (
+				9B8468A72DFF6E9E00B9E3D7 /* Social */,
+				9B84689E2DFF6E5300B9E3D7 /* Goals */,
 				9BDA90282DDA470F003F7172 /* App */,
 				9BDA90212DDA40D2003F7172 /* Fonts */,
 				9BDA901C2DDA408F003F7172 /* Data */,
@@ -138,6 +169,12 @@
 				9BCC7E512DFDE066001F4E36 /* StepsView.swift */,
 				9BDA90132DDA4000003F7172 /* LoadScreen */,
 				9BDA8FB52DDA3C7A003F7172 /* DateRangeCalendar.swift */,
+				9B8468922DFF6E2700B9E3D7 /* AchievementsView.swift */,
+				9B8468932DFF6E2700B9E3D7 /* AddGoalView.swift */,
+				9B8468942DFF6E2700B9E3D7 /* GoalDetailView.swift */,
+				9B8468952DFF6E2700B9E3D7 /* GoalsView.swift */,
+				9B8468962DFF6E2700B9E3D7 /* InsightsView.swift */,
+				9B8468972DFF6E2700B9E3D7 /* StepsView.swift */,
 				9BCC7E532DFDE0D8001F4E36 /* StepsCard.swift */,
 			);
 			path = Views;
@@ -226,6 +263,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BCC7E542DFDE0D8001F4E36 /* StepsCard.swift in Sources */,
+				9B8468982DFF6E2700B9E3D7 /* GoalDetailView.swift in Sources */,
+				9B8468992DFF6E2700B9E3D7 /* InsightsView.swift in Sources */,
+				9B84689A2DFF6E2700B9E3D7 /* AchievementsView.swift in Sources */,
+				9B84689B2DFF6E2700B9E3D7 /* AddGoalView.swift in Sources */,
+				9B84689C2DFF6E2700B9E3D7 /* GoalsView.swift in Sources */,
+				9B84689D2DFF6E2700B9E3D7 /* StepsView.swift in Sources */,
 				9BDA8FB62DDA3C7A003F7172 /* DateRangeCalendar.swift in Sources */,
 				9BCC7E522DFDE066001F4E36 /* StepsView.swift in Sources */,
 			);
@@ -378,7 +421,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantperry.ToeSteps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -412,7 +455,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantperry.ToeSteps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

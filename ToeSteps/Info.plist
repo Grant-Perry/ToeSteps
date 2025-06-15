@@ -4,17 +4,12 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<!-- REMOVE: Unnecessary permissions that will get you rejected -->
-	<!-- Apple will reject apps that request permissions they don't use -->
-	<!-- FIX: Enhanced HealthKit descriptions (Apple loves detailed explanations) -->
 	<key>NSHealthShareUsageDescription</key>
 	<string>ToeSteps displays your daily step count and walking activity from Apple Health. This data is used to show your progress over time and help you track your fitness goals. Your health data never leaves your device and is only used for display purposes.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>ToeSteps may update your Health data with step information to keep your records synchronized and accurate.</string>
-	<!-- ADD: App category for better App Store placement -->
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.healthcare-fitness</string>
-	<!-- FIX: Proper font declarations -->
 	<key>UIAppFonts</key>
 	<array>
 		<string>LondrinaShadow-Regular.ttf</string>

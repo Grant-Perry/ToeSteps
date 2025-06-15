@@ -1,30 +1,62 @@
-
-   
 import SwiftUI
 import Foundation
 
 struct StepsView: View {
    @ObservedObject var stepsViewModel: StepsViewModel
    @State private var showingDateRangePicker = false
-
+   @State private var selectedTab = 0
+   
    init(stepsViewModel: StepsViewModel) {
 	  self.stepsViewModel = stepsViewModel
    }
-
+   
    var body: some View {
+	  TabView(selection: $selectedTab) {
+		 mainDashboardView
+			.tabItem {
+			   Image(systemName: "house.fill")
+			   Text("Dashboard")
+			}
+			.tag(0)
+		 
+		 GoalsView(goalManager: stepsViewModel.goalManager, stepsViewModel: stepsViewModel)
+			.tabItem {
+			   Image(systemName: "target")
+			   Text("Goals")
+			}
+			.tag(1)
+		 
+		 InsightsView(goalManager: stepsViewModel.goalManager, stepsViewModel: stepsViewModel)
+			.tabItem {
+			   Image(systemName: "chart.xyaxis.line")
+			   Text("Insights")
+			}
+			.tag(2)
+		 
+		 AchievementsView(goalManager: stepsViewModel.goalManager)
+			.tabItem {
+			   Image(systemName: "trophy.fill")
+			   Text("Achievements")
+			}
+			.tag(3)
+	  }
+	  .preferredColorScheme(.dark)
+   }
+   
+   private var mainDashboardView: some View {
 	  ZStack {
 			// Background gradient
 		 LinearGradient(gradient: Gradient(colors: [Color.black, Color(hex: "1A1A1A")]),
 						startPoint: .top,
 						endPoint: .bottom)
 		 .ignoresSafeArea()
-
+		 
 		 VStack(spacing: 20) {
 			   // Error handling UI
 			if let errorMessage = stepsViewModel.errorMessage {
 			   errorView(message: errorMessage)
 			}
-
+			
 			if stepsViewModel.isLoading {
 			   loadingView
 			} else {
@@ -37,10 +69,8 @@ struct StepsView: View {
 			stepsViewModel.fetchStepsData()
 		 }
 	  }
-	  .preferredColorScheme(.dark)
    }
-
-	  // MVVM FIX: Break down view into smaller, focused components
+   
    private func errorView(message: String) -> some View {
 	  VStack(spacing: 10) {
 		 Image(systemName: "exclamationmark.triangle.fill")
@@ -54,7 +84,7 @@ struct StepsView: View {
 			.foregroundColor(.gray)
 			.multilineTextAlignment(.center)
 			.padding(.horizontal)
-
+		 
 		 Button("Retry") {
 			stepsViewModel.fetchStepsData()
 		 }
@@ -68,17 +98,20 @@ struct StepsView: View {
 	  .cornerRadius(15)
 	  .padding(.horizontal)
    }
-
+   
    private var loadingView: some View {
 	  ProgressView("Loading Steps Data...")
 		 .progressViewStyle(CircularProgressViewStyle())
 		 .scaleEffect(1.15)
 		 .padding(.top, 2)
    }
-
+   
    private var mainContentView: some View {
 	  VStack(spacing: 20) {
 		 headerView
+		 if stepsViewModel.hasActiveGoals {
+			goalProgressSection
+		 }
 		 dateRangeButton
 		 statsCards
 		 stepsHistoryList
@@ -86,7 +119,7 @@ struct StepsView: View {
 		 versionInfo
 	  }
    }
-
+   
    private var headerView: some View {
 	  HStack {
 		 Image(systemName: "figure.walk.circle.fill")
@@ -101,7 +134,46 @@ struct StepsView: View {
 	  .accessibilityElement(children: .combine)
 	  .accessibilityLabel("ToeSteps - Step tracking app")
    }
-
+   
+   private var goalProgressSection: some View {
+	  VStack(alignment: .leading, spacing: 12) {
+		 HStack {
+			Text("Today's Goals")
+			   .font(.title3)
+			   .fontWeight(.semibold)
+			   .foregroundColor(.white)
+			
+			Spacer()
+			
+			if stepsViewModel.goalManager.streak.currentStreak > 0 {
+			   HStack(spacing: 4) {
+				  Image(systemName: "flame.fill")
+					 .font(.caption)
+					 .foregroundColor(.orange)
+				  Text("\(stepsViewModel.goalManager.streak.currentStreak)")
+					 .font(.caption)
+					 .fontWeight(.bold)
+					 .foregroundColor(.orange)
+			   }
+			}
+		 }
+		 
+		 LazyVStack(spacing: 8) {
+			ForEach(stepsViewModel.goalManager.getTodayGoals()) { goal in
+			   CompactGoalCard(
+				  goal: goal,
+				  currentSteps: Int(stepsViewModel.todaySteps),
+				  goalManager: stepsViewModel.goalManager
+			   )
+			}
+		 }
+	  }
+	  .padding()
+	  .background(Color.white.opacity(0.1))
+	  .cornerRadius(15)
+	  .padding(.horizontal)
+   }
+   
    private var dateRangeButton: some View {
 	  Button(action: { showingDateRangePicker = true }) {
 		 HStack {
@@ -109,7 +181,6 @@ struct StepsView: View {
 			   .font(.system(size: 18))
 			   .accessibilityHidden(true)
 			Text("Select Date Range")
-			   // MVVM FIX: Use ViewModel computed property
 			Text(stepsViewModel.dateRangeText)
 			   .foregroundColor(.gray)
 		 }
@@ -126,7 +197,7 @@ struct StepsView: View {
 		 dateRangePickerSheet
 	  }
    }
-
+   
    private var dateRangePickerSheet: some View {
 	  NavigationView {
 		 VStack {
@@ -154,19 +225,17 @@ struct StepsView: View {
 	  }
 	  .preferredColorScheme(.dark)
    }
-
+   
    private var statsCards: some View {
 	  HStack(spacing: 15) {
 		 StepsCard(
 			title: "Today's Steps",
-			// MVVM FIX: Use ViewModel method
 			value: stepsViewModel.formattedNumber(stepsViewModel.todaySteps),
 			color: .green,
 			icon: "figure.walk"
 		 )
 		 .accessibilityLabel("Today's steps: \(stepsViewModel.formattedNumber(stepsViewModel.todaySteps))")
-
-			// MVVM FIX: Use ViewModel computed property
+		 
 		 if stepsViewModel.totalSteps > 0 {
 			StepsCard(
 			   title: "Total Steps",
@@ -179,7 +248,7 @@ struct StepsView: View {
 	  }
 	  .padding(.horizontal)
    }
-
+   
    private var stepsHistoryList: some View {
 	  List {
 		 Section(header: listHeader) {
@@ -191,7 +260,7 @@ struct StepsView: View {
 	  .scrollContentBackground(.hidden)
 	  .frame(maxWidth: .infinity)
    }
-
+   
    private var listHeader: some View {
 	  HStack {
 		 Text("Date").frame(width: 100, alignment: .leading)
@@ -203,42 +272,37 @@ struct StepsView: View {
 	  .foregroundColor(.white)
 	  .listRowBackground(Color.blue.opacity(0.3))
    }
-
+   
    private func stepsRow(date: Date, steps: Double) -> some View {
 	  HStack(spacing: 6) {
 		 HStack(spacing: 6) {
 			Image(systemName: "calendar.day.timeline.left")
 			   .foregroundColor(.blue)
 			   .font(.system(size: 14))
-			   // MVVM FIX: Use ViewModel method
 			Text(stepsViewModel.formattedDate(date))
 			   .lineLimit(1)
 			   .minimumScaleFactor(0.8)
 		 }
 		 .frame(width: 100, alignment: .leading)
 		 .font(.system(size: 16))
-
+		 
 		 HStack(spacing: 6) {
 			Image(systemName: "figure.walk")
 			   .foregroundColor(.green)
 			   .font(.system(size: 14))
-			   // MVVM FIX: Use ViewModel method
 			Text(stepsViewModel.formattedNumber(steps))
 			   .lineLimit(1)
 		 }
 		 .frame(width: 120, alignment: .trailing)
 		 .font(.system(size: 16, weight: .medium))
-
+		 
 		 HStack(spacing: 4) {
-			   // MVVM FIX: Use ViewModel method
 			Image(systemName: stepsViewModel.isStepsIncreasing(date: date) ? "arrow.up.circle.fill" : "arrow.down.circle.fill")
 			   .font(.system(size: 12))
-			   // MVVM FIX: Use ViewModel methods
 			Text(stepsViewModel.deltaStepsForDate(date: date))
 			   .lineLimit(1)
 			   .minimumScaleFactor(0.8)
 		 }
-			// MVVM FIX: Use ViewModel method
 		 .foregroundColor(stepsViewModel.colorForDelta(date: date))
 		 .frame(width: 120, alignment: .trailing)
 		 .font(.system(size: 16))
@@ -250,7 +314,7 @@ struct StepsView: View {
 		 : Color.black.opacity(0.1)
 	  )
    }
-
+   
    private var refreshButton: some View {
 	  Button(action: { stepsViewModel.fetchStepsData() }) {
 		 HStack(spacing: 12) {
@@ -269,15 +333,70 @@ struct StepsView: View {
 	  .accessibilityLabel("Refresh step data")
 	  .accessibilityHint("Fetches latest step count from Health app")
    }
-
+   
    private var versionInfo: some View {
 	  HStack {
 		 Image(systemName: "info.circle")
-			// MVVM FIX: Use ViewModel computed property
 		 Text("Version: \(stepsViewModel.appVersion)")
 	  }
 	  .font(.system(size: 14))
 	  .foregroundColor(.gray)
+   }
+}
+
+struct CompactGoalCard: View {
+   let goal: StepGoal
+   let currentSteps: Int
+   let goalManager: GoalManager
+   
+   private var progress: Double {
+	  goalManager.calculateGoalProgress(goal: goal, currentSteps: currentSteps)
+   }
+   
+   private var isAchieved: Bool {
+	  goalManager.isGoalAchieved(goal: goal, currentSteps: currentSteps)
+   }
+   
+   var body: some View {
+	  HStack(spacing: 12) {
+		 Image(systemName: goal.type.icon)
+			.font(.title3)
+			.foregroundColor(goal.type.color)
+			.frame(width: 30)
+		 
+		 VStack(alignment: .leading, spacing: 4) {
+			Text(goal.type.rawValue)
+			   .font(.subheadline)
+			   .fontWeight(.medium)
+			   .foregroundColor(.white)
+			
+			ProgressView(value: progress)
+			   .progressViewStyle(LinearProgressViewStyle(tint: goal.type.color))
+			   .scaleEffect(y: 1.5)
+		 }
+		 
+		 Spacer()
+		 
+		 VStack(alignment: .trailing, spacing: 2) {
+			Text("\(currentSteps)")
+			   .font(.headline)
+			   .fontWeight(.bold)
+			   .foregroundColor(.white)
+			
+			Text("\(goal.targetSteps)")
+			   .font(.caption)
+			   .foregroundColor(.gray)
+		 }
+		 
+		 if isAchieved {
+			Image(systemName: "checkmark.circle.fill")
+			   .font(.title3)
+			   .foregroundColor(.green)
+		 }
+	  }
+	  .padding()
+	  .background(Color.white.opacity(0.1))
+	  .cornerRadius(12)
    }
 }
 

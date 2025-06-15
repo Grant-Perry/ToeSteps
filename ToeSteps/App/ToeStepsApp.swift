@@ -10,9 +10,9 @@ import SwiftUI
 
 @main
 struct ToeStepsApp: App {
-   @State private var showSplash = true
    @StateObject private var stepsViewModel = StepsViewModel()
-
+   @State private var showSplash = true
+   
    var body: some Scene {
 	  WindowGroup {
 		 if showSplash {

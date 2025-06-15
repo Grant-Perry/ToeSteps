@@ -2,7 +2,7 @@
    //   ToeSteps
    //
    //   Created by: Grant Perry on 6/25/24 at 6:05 PM
-   //     Modified:
+   //   Modified:
    //
    //  Copyright 2024 Delicious Studios, LLC. - Grant Perry
    //
@@ -17,12 +17,18 @@ class StepsViewModel: ObservableObject {
    @Published var isLoading = false
    @Published var selectedStartDate: Date = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date())!
    @Published var selectedEndDate: Date = Date()
-	  // ADD: Error handling properties
+
    @Published var errorMessage: String?
    @Published var hasHealthKitAccess = false
 
+   @Published var goalManager = GoalManager()
+
    private let healthStore = HKHealthStore()
    private var cancellable: AnyCancellable?
+
+   private var isExtendedDataMode = false
+   private var extendedStartDate: Date?
+   private var extendedEndDate: Date?
 
 	  // MVVM FIX: Move formatters to ViewModel for reuse and efficiency
    private let compactDateFormatter: DateFormatter = {
@@ -62,6 +68,21 @@ class StepsViewModel: ObservableObject {
 	  return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
    }
 
+   var todayGoalProgress: Double {
+	  let todayGoals = goalManager.getTodayGoals()
+	  guard let primaryGoal = todayGoals.first else { return 0.0 }
+	  return goalManager.calculateGoalProgress(goal: primaryGoal, currentSteps: Int(todaySteps))
+   }
+
+   var hasActiveGoals: Bool {
+	  return !goalManager.getActiveGoals().isEmpty
+   }
+
+   var weeklyAverage: Double {
+	  let weekData = getWeekData()
+	  return weekData.isEmpty ? 0.0 : weekData.values.reduce(0, +) / Double(weekData.count)
+   }
+
    func formattedNumber(_ number: Double) -> String {
 	  return numberFormatter.string(from: NSNumber(value: Int(number))) ?? "0"
    }
@@ -98,8 +119,29 @@ class StepsViewModel: ObservableObject {
 	  return currentSteps > previousSteps
    }
 
+   private func getWeekData() -> [Date: Double] {
+	  let calendar = Calendar.current
+	  let now = Date()
+	  guard let weekStart = calendar.dateInterval(of: .weekOfYear, for: now)?.start else { return [:] }
+
+	  return stepsData.filter { date, _ in
+		 calendar.isDate(date, equalTo: weekStart, toGranularity: .weekOfYear)
+	  }
+   }
+
+   func updateGoalProgress() {
+		 // Update streak based on today's steps
+	  goalManager.updateStreakForToday(totalSteps: Int(todaySteps))
+
+		 // Check for achievements
+	  goalManager.checkAchievements(totalSteps: Int(todaySteps))
+
+		 // Generate weekly insights
+	  goalManager.generateWeeklyInsights(stepsData: stepsData)
+   }
+
    private func requestAuthorization() {
-		 // ADD: Check if HealthKit is available
+
 	  guard HKHealthStore.isHealthDataAvailable() else {
 		 DispatchQueue.main.async {
 			self.errorMessage = "HealthKit is not available on this device."
@@ -124,7 +166,7 @@ class StepsViewModel: ObservableObject {
    }
 
    func fetchStepsData(from startDate: Date? = nil, to endDate: Date? = nil) {
-		 // ADD: Check access before fetching
+
 	  guard hasHealthKitAccess else {
 		 DispatchQueue.main.async {
 			self.errorMessage = "HealthKit access is required to view step data."
@@ -135,10 +177,22 @@ class StepsViewModel: ObservableObject {
 	  isLoading = true
 	  errorMessage = nil
 
-	  DispatchQueue.global(qos: .userInitiated).async {
-		 let useStartDate = startDate ?? self.selectedStartDate
-		 let useEndDate = endDate ?? self.selectedEndDate
 
+	  let useStartDate = startDate ?? self.selectedStartDate
+	  let useEndDate = endDate ?? self.selectedEndDate
+
+		 // If we have custom dates, we're in extended mode
+	  if startDate != nil && endDate != nil {
+		 isExtendedDataMode = true
+		 extendedStartDate = startDate
+		 extendedEndDate = endDate
+	  } else {
+		 isExtendedDataMode = false
+		 extendedStartDate = nil
+		 extendedEndDate = nil
+	  }
+
+	  DispatchQueue.global(qos: .userInitiated).async {
 		 let midnightOfStartDate = Calendar.current.startOfDay(for: useStartDate)
 		 let endOfDay = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: useEndDate)!
 		 let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
@@ -154,7 +208,7 @@ class StepsViewModel: ObservableObject {
 			   self.isLoading = false
 			}
 
-			   // ADD: Better error handling
+
 			if let error = error {
 			   DispatchQueue.main.async {
 				  self.errorMessage = "Failed to fetch step data: \(error.localizedDescription)"
@@ -185,8 +239,19 @@ class StepsViewModel: ObservableObject {
 			}
 
 			DispatchQueue.main.async {
-			   self.stepsData = newStepsData
+
+			   if self.isExtendedDataMode {
+					 // Merge new data with existing data
+				  for (date, steps) in newStepsData {
+					 self.stepsData[date] = steps
+				  }
+			   } else {
+					 // Normal mode, replace all data
+				  self.stepsData = newStepsData
+			   }
+
 			   self.errorMessage = nil
+			   self.updateGoalProgress()
 			}
 		 }
 
@@ -198,11 +263,55 @@ class StepsViewModel: ObservableObject {
 	  cancellable = Timer.publish(every: 60, on: .main, in: .common)
 		 .autoconnect()
 		 .sink { [weak self] _ in
+			guard let self = self else { return }
+
 			   // Only auto-refresh if we have access
-			if self?.hasHealthKitAccess == true {
-			   self?.fetchStepsData()
+			if self.hasHealthKitAccess {
+
+			   if !self.isExtendedDataMode {
+				  self.fetchStepsData()
+			   } else {
+					 // In extended mode, only refresh today's data to keep it current
+				  self.refreshTodaySteps()
+			   }
 			}
 		 }
+   }
+
+   private func refreshTodaySteps() {
+	  guard hasHealthKitAccess else { return }
+
+	  let today = Date()
+	  let startOfToday = Calendar.current.startOfDay(for: today)
+	  let endOfToday = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: today)!
+
+	  let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+
+	  let query = HKStatisticsQuery(quantityType: stepsQuantityType,
+									quantitySamplePredicate: HKQuery.predicateForSamples(withStart: startOfToday, end: endOfToday),
+									options: .cumulativeSum) { _, result, _ in
+		 if let result = result, let sum = result.sumQuantity() {
+			let steps = sum.doubleValue(for: HKUnit.count())
+			DispatchQueue.main.async {
+			   self.todaySteps = steps
+			   self.stepsData[startOfToday] = steps
+			}
+		 }
+	  }
+
+	  healthStore.execute(query)
+   }
+
+   func resetToWeekView() {
+	  isExtendedDataMode = false
+	  extendedStartDate = nil
+	  extendedEndDate = nil
+
+		 // Reset to default week range
+	  selectedStartDate = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: Date())!
+	  selectedEndDate = Date()
+
+	  fetchStepsData()
    }
 
    deinit {
