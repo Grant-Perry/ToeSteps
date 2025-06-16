@@ -7,57 +7,69 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B8468982DFF6E2700B9E3D7 /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468942DFF6E2700B9E3D7 /* GoalDetailView.swift */; };
-		9B8468992DFF6E2700B9E3D7 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468962DFF6E2700B9E3D7 /* InsightsView.swift */; };
-		9B84689A2DFF6E2700B9E3D7 /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468922DFF6E2700B9E3D7 /* AchievementsView.swift */; };
-		9B84689B2DFF6E2700B9E3D7 /* AddGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468932DFF6E2700B9E3D7 /* AddGoalView.swift */; };
-		9B84689C2DFF6E2700B9E3D7 /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468952DFF6E2700B9E3D7 /* GoalsView.swift */; };
 		9B84689D2DFF6E2700B9E3D7 /* StepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468972DFF6E2700B9E3D7 /* StepsView.swift */; };
+		9B8468BD2DFF8C0D00B9E3D7 /* CompactGoalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468BC2DFF8C0D00B9E3D7 /* CompactGoalCard.swift */; };
 		9BC644DA2C0F8A1500DBB7B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */; };
 		9BC644DD2C0F8A1500DBB7B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BC644DC2C0F8A1500DBB7B5 /* Preview Assets.xcassets */; };
 		9BC644E82C0F915C00DBB7B5 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC644E72C0F915C00DBB7B5 /* HealthKit.framework */; };
 		9BC644EA2C0F917100DBB7B5 /* HealthKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC644E92C0F917100DBB7B5 /* HealthKitUI.framework */; };
-		9BCC7E522DFDE066001F4E36 /* StepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCC7E512DFDE066001F4E36 /* StepsView.swift */; };
 		9BCC7E542DFDE0D8001F4E36 /* StepsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCC7E532DFDE0D8001F4E36 /* StepsCard.swift */; };
 		9BDA8FB62DDA3C7A003F7172 /* DateRangeCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDA8FB52DDA3C7A003F7172 /* DateRangeCalendar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9B8468922DFF6E2700B9E3D7 /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
-		9B8468932DFF6E2700B9E3D7 /* AddGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalView.swift; sourceTree = "<group>"; };
-		9B8468942DFF6E2700B9E3D7 /* GoalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailView.swift; sourceTree = "<group>"; };
-		9B8468952DFF6E2700B9E3D7 /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
-		9B8468962DFF6E2700B9E3D7 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		9B8468972DFF6E2700B9E3D7 /* StepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsView.swift; sourceTree = "<group>"; };
+		9B8468BC2DFF8C0D00B9E3D7 /* CompactGoalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactGoalCard.swift; sourceTree = "<group>"; };
 		9BC644D22C0F8A1400DBB7B5 /* ToeSteps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToeSteps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BC644DC2C0F8A1500DBB7B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9BC644E72C0F915C00DBB7B5 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		9BC644E92C0F917100DBB7B5 /* HealthKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKitUI.framework; path = System/Library/Frameworks/HealthKitUI.framework; sourceTree = SDKROOT; };
-		9BC644EB2C0F929A00DBB7B5 /* ToeSteps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToeSteps.entitlements; sourceTree = "<group>"; };
-		9BCC7E512DFDE066001F4E36 /* StepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsView.swift; sourceTree = "<group>"; };
 		9BCC7E532DFDE0D8001F4E36 /* StepsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsCard.swift; sourceTree = "<group>"; };
 		9BDA8FB52DDA3C7A003F7172 /* DateRangeCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangeCalendar.swift; sourceTree = "<group>"; };
 		9BDA90222DDA4156003F7172 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9B10F62B2C2B7724008EB697 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				StepsViewModel.swift,
-			);
-			target = 9BC644D12C0F8A1400DBB7B5 /* ToeSteps */;
-		};
 		9B8468A42DFF6E7300B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Model/GoalManager.swift,
-				ViewModel/GoalModel.swift,
+				Model/GoalModel.swift,
+				ViewModel/GoalManager.swift,
+				Views/AddGoalView.swift,
+				Views/EditGoalView.swift,
+				Views/GoalDetailView.swift,
+				Views/GoalsView.swift,
+				Views/GoalTypeCard.swift,
+				Views/StartCard.swift,
 			);
 			target = 9BC644D12C0F8A1400DBB7B5 /* ToeSteps */;
 		};
-		9B8468AD2DFF6ECF00B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		9B8468B52DFF8AB200B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ViewModel/StepsViewModel.swift,
+			);
+			target = 9BC644D12C0F8A1400DBB7B5 /* ToeSteps */;
+		};
+		9B8468B82DFF8B8300B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Views/AchievementDetailView.swift,
+				Views/AchievementsCard.swift,
+				Views/AchievementsView.swift,
+				Views/CategoryButton.swift,
+			);
+			target = 9BC644D12C0F8A1400DBB7B5 /* ToeSteps */;
+		};
+		9B8468BB2DFF8B9900B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Views/InsightsView.swift,
+			);
+			target = 9BC644D12C0F8A1400DBB7B5 /* ToeSteps */;
+		};
+		9B8468BE2DFF8C7100B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Model/SocialManager.swift,
@@ -96,9 +108,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		9B10F6282C2B76A3008EB697 /* ViewModel */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B10F62B2C2B7724008EB697 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ViewModel; sourceTree = "<group>"; };
 		9B84689E2DFF6E5300B9E3D7 /* Goals */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B8468A42DFF6E7300B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Goals; sourceTree = "<group>"; };
-		9B8468A72DFF6E9E00B9E3D7 /* Social */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B8468AD2DFF6ECF00B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Social; sourceTree = "<group>"; };
+		9B8468A72DFF6E9E00B9E3D7 /* Social */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B8468BE2DFF8C7100B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Social; sourceTree = "<group>"; };
+		9B8468AF2DFF8A8D00B9E3D7 /* Steps */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B8468B52DFF8AB200B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Steps; sourceTree = "<group>"; };
+		9B8468B62DFF8B7700B9E3D7 /* Achievements */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B8468B82DFF8B8300B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Achievements; sourceTree = "<group>"; };
+		9B8468B92DFF8B8E00B9E3D7 /* Insights */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B8468BB2DFF8B9900B9E3D7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Insights; sourceTree = "<group>"; };
 		9BDA90132DDA4000003F7172 /* LoadScreen */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = LoadScreen; sourceTree = "<group>"; };
 		9BDA90182DDA4030003F7172 /* Ext */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9BDA901A2DDA404B003F7172 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Ext; sourceTree = "<group>"; };
 		9BDA901C2DDA408F003F7172 /* Data */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9BDA901E2DDA40A2003F7172 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Data; sourceTree = "<group>"; };
@@ -139,18 +153,19 @@
 		9BC644D42C0F8A1400DBB7B5 /* ToeSteps */ = {
 			isa = PBXGroup;
 			children = (
-				9B8468A72DFF6E9E00B9E3D7 /* Social */,
-				9B84689E2DFF6E5300B9E3D7 /* Goals */,
+				9B8468B62DFF8B7700B9E3D7 /* Achievements */,
 				9BDA90282DDA470F003F7172 /* App */,
-				9BDA90212DDA40D2003F7172 /* Fonts */,
+				9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */,
 				9BDA901C2DDA408F003F7172 /* Data */,
 				9BDA90182DDA4030003F7172 /* Ext */,
-				9B10F6282C2B76A3008EB697 /* ViewModel */,
+				9BDA90212DDA40D2003F7172 /* Fonts */,
+				9B84689E2DFF6E5300B9E3D7 /* Goals */,
 				9BDA90222DDA4156003F7172 /* Info.plist */,
-				9BC644EB2C0F929A00DBB7B5 /* ToeSteps.entitlements */,
-				9BC644E32C0F8BCF00DBB7B5 /* Views */,
-				9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */,
+				9B8468B92DFF8B8E00B9E3D7 /* Insights */,
 				9BC644DB2C0F8A1500DBB7B5 /* Preview Content */,
+				9B8468A72DFF6E9E00B9E3D7 /* Social */,
+				9B8468AF2DFF8A8D00B9E3D7 /* Steps */,
+				9BC644E32C0F8BCF00DBB7B5 /* Views */,
 			);
 			path = ToeSteps;
 			sourceTree = "<group>";
@@ -166,16 +181,11 @@
 		9BC644E32C0F8BCF00DBB7B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9BCC7E512DFDE066001F4E36 /* StepsView.swift */,
-				9BDA90132DDA4000003F7172 /* LoadScreen */,
 				9BDA8FB52DDA3C7A003F7172 /* DateRangeCalendar.swift */,
-				9B8468922DFF6E2700B9E3D7 /* AchievementsView.swift */,
-				9B8468932DFF6E2700B9E3D7 /* AddGoalView.swift */,
-				9B8468942DFF6E2700B9E3D7 /* GoalDetailView.swift */,
-				9B8468952DFF6E2700B9E3D7 /* GoalsView.swift */,
-				9B8468962DFF6E2700B9E3D7 /* InsightsView.swift */,
-				9B8468972DFF6E2700B9E3D7 /* StepsView.swift */,
+				9BDA90132DDA4000003F7172 /* LoadScreen */,
 				9BCC7E532DFDE0D8001F4E36 /* StepsCard.swift */,
+				9B8468972DFF6E2700B9E3D7 /* StepsView.swift */,
+				9B8468BC2DFF8C0D00B9E3D7 /* CompactGoalCard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -263,14 +273,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BCC7E542DFDE0D8001F4E36 /* StepsCard.swift in Sources */,
-				9B8468982DFF6E2700B9E3D7 /* GoalDetailView.swift in Sources */,
-				9B8468992DFF6E2700B9E3D7 /* InsightsView.swift in Sources */,
-				9B84689A2DFF6E2700B9E3D7 /* AchievementsView.swift in Sources */,
-				9B84689B2DFF6E2700B9E3D7 /* AddGoalView.swift in Sources */,
-				9B84689C2DFF6E2700B9E3D7 /* GoalsView.swift in Sources */,
+				9B8468BD2DFF8C0D00B9E3D7 /* CompactGoalCard.swift in Sources */,
 				9B84689D2DFF6E2700B9E3D7 /* StepsView.swift in Sources */,
 				9BDA8FB62DDA3C7A003F7172 /* DateRangeCalendar.swift in Sources */,
-				9BCC7E522DFDE066001F4E36 /* StepsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,19 +414,21 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ToeSteps/Info.plist;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "ToeSteps needs to access your health information to function.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "ToeSteps needs access to function.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "ToeSteps displays your daily step count and walking activity from Apple Health. This data is used to show your progress over time and help you track your fitness goals. Your health data never leaves your device and is only used for display purposes.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "ToeSteps may update your Health data with step information to keep your records synchronized and accurate.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantperry.ToeSteps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -443,19 +450,21 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ToeSteps/Info.plist;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "ToeSteps needs to access your health information to function.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "ToeSteps needs access to function.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "ToeSteps displays your daily step count and walking activity from Apple Health. This data is used to show your progress over time and help you track your fitness goals. Your health data never leaves your device and is only used for display purposes.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "ToeSteps may update your Health data with step information to keep your records synchronized and accurate.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantperry.ToeSteps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -1,10 +1,3 @@
-//   GoalDetailView.swift
-//   ToeSteps
-//
-//   Created by: Grant Perry on 6/15/25 at 4:25 PM
-//   Modified:
-//
-//   Copyright 2025 Delicious Studios, LLC. - Grant Perry
 
 import SwiftUI
 
@@ -371,93 +364,6 @@ struct GoalDetailView: View {
 struct HistoryEntry: Equatable {
     let date: Date
     let steps: Int
-}
-
-struct StatCard: View {
-    let title: String
-    let value: String
-    let icon: String
-    let color: Color
-    
-    var body: some View {
-        VStack(spacing: 8) {
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundColor(color)
-            
-            Text(value)
-                .font(.title3)
-                .fontWeight(.bold)
-            
-            Text(title)
-                .font(.caption)
-                .foregroundColor(.secondary)
-        }
-        .padding()
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 1)
-    }
-}
-
-// MARK: - Edit Goal View
-
-struct EditGoalView: View {
-    let goal: StepGoal
-    @ObservedObject var goalManager: GoalManager
-    @Environment(\.dismiss) private var dismiss
-    
-    @State private var targetSteps: String = ""
-    @State private var isActive: Bool = true
-    
-    var body: some View {
-        NavigationView {
-            Form {
-                Section("Goal Settings") {
-                    HStack {
-                        Text("Target Steps")
-                        Spacer()
-                        TextField("Steps", text: $targetSteps)
-                            .keyboardType(.numberPad)
-                            .multilineTextAlignment(.trailing)
-                    }
-                    
-                    Toggle("Active", isOn: $isActive)
-                }
-            }
-            .navigationTitle("Edit Goal")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
-                        saveChanges()
-                    }
-                    .disabled(targetSteps.isEmpty)
-                }
-            }
-        }
-        .onAppear {
-            targetSteps = "\(goal.targetSteps)"
-            isActive = goal.isActive
-        }
-    }
-    
-    private func saveChanges() {
-        guard let steps = Int(targetSteps) else { return }
-        
-        var updatedGoal = goal
-        updatedGoal.targetSteps = steps
-        updatedGoal.isActive = isActive
-        
-        goalManager.updateGoal(updatedGoal)
-        dismiss()
-    }
 }
 
 struct GoalDetailView_Previews: PreviewProvider {

@@ -4,7 +4,7 @@
    //   Created by: Grant Perry on 6/15/25 at 4:25 PM
    //   Modified:
    //
-   //   Copyright 2025 Delicious Studios, LLC. - Grant Perry
+   //   Copyright 2025 Cre8vPlanet Studios, LLC.. - Grant Perry
 
 import Foundation
 import SwiftUI

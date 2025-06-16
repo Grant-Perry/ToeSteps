@@ -1,10 +1,3 @@
-   //   SocialManager.swift
-   //   ToeSteps
-   //
-   //   Created by: Grant Perry on 6/15/25 at 5:00 PM
-   //   Modified:
-   //
-   //   Copyright 2025 Delicious Studios, LLC. - Grant Perry
 
 import SwiftUI
 import UIKit

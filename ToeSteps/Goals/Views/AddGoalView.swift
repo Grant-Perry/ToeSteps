@@ -4,7 +4,7 @@
 //   Created by: Grant Perry on 6/15/25 at 4:25 PM
 //   Modified:
 //
-//   Copyright 2025 Delicious Studios, LLC. - Grant Perry
+//   Copyright 2025 Cre8vPlanet Studios, LLC.. - Grant Perry
 
 import SwiftUI
 
@@ -265,15 +265,17 @@ struct AddGoalView: View {
         return true
     }
     
-    private let presetOptions: [(Int, String)] = [
-        (5000, "Starter"),
-        (7500, "Moderate"),
-        (10000, "Standard"),
-        (12500, "Active"),
-        (15000, "Advanced"),
-        (20000, "Expert")
-    ]
-    
+   private let presetOptions: [(Int, String)] = [
+	  (5000, "Sloth"),
+	  (7500, "Stroller"),
+	  (10000, "Mover"),
+	  (12500, "Strider"),
+	  (15000, "Crusher"),
+	  (20000, "Beast"),
+	  (25000, "Lunatic"),
+	  (30000, "Freak")
+   ]
+
     private func adjustEndDateForGoalType() {
         switch selectedGoalType {
         case .daily:
@@ -307,29 +309,6 @@ struct AddGoalView: View {
 /**
  * Goal type selection card component
  */
-struct GoalTypeCard: View {
-    let type: StepGoal.GoalType
-    let isSelected: Bool
-    let onTap: () -> Void
-    
-    var body: some View {
-        Button(action: onTap) {
-            VStack(spacing: 12) {
-                Image(systemName: type.icon)
-                    .font(.title)
-                    .foregroundColor(isSelected ? .white : type.color)
-                
-                Text(type.rawValue)
-                    .font(.headline)
-                    .foregroundColor(isSelected ? .white : .primary)
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(isSelected ? type.color : Color(.systemGray6))
-            .cornerRadius(12)
-        }
-    }
-}
 
 struct AddGoalView_Previews: PreviewProvider {
     static var previews: some View {

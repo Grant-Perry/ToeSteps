@@ -4,7 +4,7 @@
 //   Created by: Grant Perry on 6/15/25 at 4:25 PM
 //   Modified:
 //
-//   Copyright 2025 Delicious Studios, LLC. - Grant Perry
+//  Copyright © 2025 Cre8vPlanet Studios, LLC. - Grant Perry - all rights reserved.
 
 import SwiftUI
 
@@ -235,11 +235,14 @@ struct GoalsView: View {
     }
     
     private let quickGoalOptions: [(Int, String)] = [
-        (5000, "Beginner"),
-        (7500, "Active"),
-        (10000, "Standard"),
-        (12500, "Advanced"),
-        (15000, "Expert")
+	  (5000, "Sloth"),
+	  (7500, "Stroller"),
+	  (10000, "Mover"),
+	  (12500, "Strider"),
+	  (15000, "Crusher"),
+	  (20000, "Beast"),
+	  (25000, "Lunatic"),
+	  (30000, "Freak")
     ]
 }
 

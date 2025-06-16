@@ -1,10 +1,8 @@
    //   ToeStepsApp.swift
    //   ToeSteps
-   //
    //   Created by: Grant Perry on 6/4/24 at 1:44 PM
-   //     Modified:
    //
-   //  Copyright Delicious Studios, LLC. - Grant Perry
+   //  Copyright © 2025 Cre8vPlanet Studios, LLC. - Grant Perry - all rights reserved.
 
 import SwiftUI
 
