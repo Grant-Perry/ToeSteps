@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 /**
@@ -23,6 +22,22 @@ struct AchievementsView: View {
    var body: some View {
 	  NavigationView {
 		 VStack(spacing: 0) {
+			   // HealthKit data source indicator
+			HStack(spacing: 6) {
+			   Image(systemName: "heart.text.square.fill")
+				  .font(.system(size: 14))
+				  .foregroundColor(.red)
+			   Text("Achievements based on HealthKit step data")
+				  .font(.system(size: 14, weight: .medium))
+				  .foregroundColor(.secondary)
+			}
+			.padding(.horizontal, 12)
+			.padding(.vertical, 6)
+			.background(Color(.systemGray6))
+			.cornerRadius(8)
+			.padding(.horizontal)
+			.padding(.top, 8)
+			
 			   // Achievement stats header
 			achievementStatsHeader
 
@@ -199,9 +214,6 @@ struct AchievementsView: View {
 	  return text.isEmpty ? "Just getting started on my fitness journey!" : text
    }
 }
-
-
-
 
 struct AchievementsView_Previews: PreviewProvider {
    static var previews: some View {
