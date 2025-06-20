@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B3B2FCC2E0185A000A26119 /* privacy.html in Resources */ = {isa = PBXBuildFile; fileRef = 9B3B2FCB2E0185A000A26119 /* privacy.html */; };
 		9B84689D2DFF6E2700B9E3D7 /* StepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468972DFF6E2700B9E3D7 /* StepsView.swift */; };
 		9B8468BD2DFF8C0D00B9E3D7 /* CompactGoalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8468BC2DFF8C0D00B9E3D7 /* CompactGoalCard.swift */; };
 		9BC644DA2C0F8A1500DBB7B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B3B2FCB2E0185A000A26119 /* privacy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
 		9B8468972DFF6E2700B9E3D7 /* StepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsView.swift; sourceTree = "<group>"; };
 		9B8468BC2DFF8C0D00B9E3D7 /* CompactGoalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactGoalCard.swift; sourceTree = "<group>"; };
 		9BC644D22C0F8A1400DBB7B5 /* ToeSteps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToeSteps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +155,7 @@
 		9BC644D42C0F8A1400DBB7B5 /* ToeSteps */ = {
 			isa = PBXGroup;
 			children = (
+				9B3B2FCB2E0185A000A26119 /* privacy.html */,
 				9B8468B62DFF8B7700B9E3D7 /* Achievements */,
 				9BDA90282DDA470F003F7172 /* App */,
 				9BC644D92C0F8A1500DBB7B5 /* Assets.xcassets */,
@@ -261,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BC644DD2C0F8A1500DBB7B5 /* Preview Assets.xcassets in Resources */,
+				9B3B2FCC2E0185A000A26119 /* privacy.html in Resources */,
 				9BC644DA2C0F8A1500DBB7B5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,7 +412,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ToeSteps/ToeSteps.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"ToeSteps/Preview Content\"";
 				DEVELOPMENT_TEAM = KP3ZH5K2SY;
 				ENABLE_PREVIEWS = YES;
@@ -428,7 +432,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1;
+				MARKETING_VERSION = 3.23;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantperry.ToeSteps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -444,7 +448,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ToeSteps/ToeSteps.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"ToeSteps/Preview Content\"";
 				DEVELOPMENT_TEAM = KP3ZH5K2SY;
 				ENABLE_PREVIEWS = YES;
@@ -464,7 +468,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1;
+				MARKETING_VERSION = 3.23;
 				PRODUCT_BUNDLE_IDENTIFIER = com.grantperry.ToeSteps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

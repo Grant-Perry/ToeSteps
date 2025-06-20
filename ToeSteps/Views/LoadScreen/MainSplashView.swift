@@ -55,12 +55,7 @@ struct MainSplashView: View {
 				  // Footer
 			   VStack(spacing: 10) {
 				  AppConstants.VersionFooter(foreGround: .white,
-											 fontSize: .system(size: 16),
 											 bottomPadding: 2.0)
-
-				  Text("Gp. Delicious Studios - \(String(currentYear))")
-					 .font(.system(size: 12, weight: .medium, design: .rounded))
-					 .shadow(color: .pink.opacity(0.8), radius: 10, x: 0, y: 5)
 			   }
 			   .frame(maxWidth: .infinity)
 			   .foregroundColor(.white)

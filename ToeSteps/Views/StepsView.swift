@@ -51,14 +51,14 @@ struct StepsView: View {
 						endPoint: .bottom)
 		 .ignoresSafeArea()
 		 
-		 VStack(spacing: 20) {
+		 VStack(spacing: 0) {
 			   // Error handling UI
 			if let errorMessage = stepsViewModel.errorMessage {
 			   errorView(message: errorMessage)
-			}
-			
-			if stepsViewModel.isLoading {
+			   Spacer()
+			} else if stepsViewModel.isLoading {
 			   loadingView
+			   Spacer()
 			} else {
 			   mainContentView
 			}
@@ -76,7 +76,7 @@ struct StepsView: View {
 		 Image(systemName: "exclamationmark.triangle.fill")
 			.font(.system(size: 30))
 			.foregroundColor(.orange)
-		 Text("Error")
+		 Text("HealthKit Access Required")
 			.font(.headline)
 			.foregroundColor(.white)
 		 Text(message)
@@ -85,7 +85,13 @@ struct StepsView: View {
 			.multilineTextAlignment(.center)
 			.padding(.horizontal)
 		 
-		 Button("Retry") {
+		 Text("ToeSteps uses HealthKit to access your step data from the Apple Health app")
+			.font(.caption)
+			.foregroundColor(.secondary)
+			.multilineTextAlignment(.center)
+			.padding(.horizontal)
+		 
+		 Button("Enable HealthKit Access") {
 			stepsViewModel.fetchStepsData()
 		 }
 		 .padding()
@@ -100,39 +106,83 @@ struct StepsView: View {
    }
    
    private var loadingView: some View {
-	  ProgressView("Loading Steps Data...")
-		 .progressViewStyle(CircularProgressViewStyle())
-		 .scaleEffect(1.15)
-		 .padding(.top, 2)
+	  VStack {
+		 ProgressView("Loading Steps Data...")
+			.progressViewStyle(CircularProgressViewStyle())
+			.scaleEffect(1.15)
+			.padding(.top, 50)
+		 
+		 Text("Fetching from HealthKit...")
+			.font(.caption)
+			.foregroundColor(.gray)
+			.padding(.top, 8)
+	  }
    }
    
    private var mainContentView: some View {
-	  VStack(spacing: 20) {
-		 headerView
-		 if stepsViewModel.hasActiveGoals {
-			goalProgressSection
+	  VStack(spacing: 0) {
+			// Scrollable content
+		 ScrollView {
+			VStack(spacing: 20) {
+			   headerView
+			   
+			   if stepsViewModel.hasActiveGoals {
+				  goalProgressSection
+			   }
+			   
+			   dateRangeButton
+			   statsCards
+			   
+				  // Daily steps history section
+			   dailyStepsSection
+			}
+			.padding(.bottom, 100) // Extra space for footer
 		 }
-		 dateRangeButton
-		 statsCards
-		 stepsHistoryList
-		 refreshButton
-		 versionInfo
+		 
+			// Fixed footer
+		 VStack(spacing: 8) {
+			refreshButton
+			versionInfo
+		 }
+		 .padding(.vertical, 12)
+		 .background(
+			LinearGradient(
+			   gradient: Gradient(colors: [Color.black.opacity(0.9), Color.black]),
+			   startPoint: .top,
+			   endPoint: .bottom
+			)
+		 )
 	  }
    }
    
    private var headerView: some View {
-	  HStack {
-		 Image(systemName: "figure.walk.circle.fill")
-			.font(.system(size: 44))
-			.foregroundColor(.blue)
-			.accessibilityHidden(true)
-		 Text("ToeSteps")
-			.font(.largeTitle)
-			.foregroundColor(.white)
+	  VStack(spacing: 8) {
+		 HStack {
+			Image(systemName: "figure.walk.circle.fill")
+			   .font(.system(size: 44))
+			   .foregroundColor(.blue)
+			   .accessibilityHidden(true)
+			Text("ToeSteps")
+			   .font(.largeTitle)
+			   .foregroundColor(.white)
+		 }
+		 
+		 HStack(spacing: 6) {
+			Image(systemName: "heart.text.square.fill")
+			   .font(.system(size: 14))
+			   .foregroundColor(.red)
+			Text("Data from Apple Health")
+			   .font(.system(size: 14, weight: .medium))
+			   .foregroundColor(.gray)
+		 }
+		 .padding(.horizontal, 12)
+		 .padding(.vertical, 6)
+		 .background(Color.white.opacity(0.1))
+		 .cornerRadius(8)
 	  }
 	  .padding(.top, 20)
 	  .accessibilityElement(children: .combine)
-	  .accessibilityLabel("ToeSteps - Step tracking app")
+	  .accessibilityLabel("ToeSteps - Step tracking app using data from Apple Health")
    }
    
    private var goalProgressSection: some View {
@@ -227,75 +277,111 @@ struct StepsView: View {
    }
    
    private var statsCards: some View {
-	  HStack(spacing: 15) {
-		 StepsCard(
-			title: "Today's Steps",
-			value: stepsViewModel.formattedNumber(stepsViewModel.todaySteps),
-			color: .green,
-			icon: "figure.walk"
-		 )
-		 .accessibilityLabel("Today's steps: \(stepsViewModel.formattedNumber(stepsViewModel.todaySteps))")
-		 
-		 if stepsViewModel.totalSteps > 0 {
+	  VStack(spacing: 15) {
+		 HStack(spacing: 15) {
 			StepsCard(
-			   title: "Total Steps",
-			   value: stepsViewModel.formattedNumber(stepsViewModel.totalSteps),
-			   color: .yellow,
-			   icon: "sum"
+			   title: "Today's Steps",
+			   value: stepsViewModel.formattedNumber(stepsViewModel.todaySteps),
+			   color: .green,
+			   icon: "figure.walk"
 			)
-			.accessibilityLabel("Total steps in date range: \(stepsViewModel.formattedNumber(stepsViewModel.totalSteps))")
+			.accessibilityLabel("Today's steps: \(stepsViewModel.formattedNumber(stepsViewModel.todaySteps))")
+			
+			if stepsViewModel.totalSteps > 0 {
+			   StepsCard(
+				  title: "Total Steps",
+				  value: stepsViewModel.formattedNumber(stepsViewModel.totalSteps),
+				  color: .yellow,
+				  icon: "sum"
+			   )
+			   .accessibilityLabel("Total steps in date range: \(stepsViewModel.formattedNumber(stepsViewModel.totalSteps))")
+			}
 		 }
+		 
+		 HStack(spacing: 4) {
+			Image(systemName: "heart.fill")
+			   .font(.system(size: 12))
+			   .foregroundColor(.red)
+			Text("Step data sourced from HealthKit")
+			   .font(.system(size: 12))
+			   .foregroundColor(.secondary)
+		 }
+		 .padding(.top, 4)
 	  }
 	  .padding(.horizontal)
    }
    
-   private var stepsHistoryList: some View {
-	  List {
-		 Section(header: listHeader) {
+	  // NEW: Daily steps section with proper layout
+   private var dailyStepsSection: some View {
+	  VStack(alignment: .leading, spacing: 16) {
+			// Section header
+		 HStack {
+			Text("Daily Step History")
+			   .font(.title2)
+			   .fontWeight(.bold)
+			   .foregroundColor(.white)
+			
+			Spacer()
+			
+			Text("\(stepsViewModel.stepsData.count) days")
+			   .font(.caption)
+			   .foregroundColor(.gray)
+			   .padding(.horizontal, 8)
+			   .padding(.vertical, 4)
+			   .background(Color.white.opacity(0.1))
+			   .cornerRadius(8)
+		 }
+		 .padding(.horizontal)
+		 
+			// Column headers
+		 HStack {
+			Text("Date")
+			   .frame(width: 100, alignment: .leading)
+			Text("Steps")
+			   .frame(width: 100, alignment: .trailing)
+			Text("Change")
+			   .frame(width: 100, alignment: .trailing)
+		 }
+		 .font(.system(size: 14, weight: .semibold))
+		 .foregroundColor(.gray)
+		 .padding(.horizontal)
+		 
+			// Steps data rows
+		 LazyVStack(spacing: 8) {
 			ForEach(stepsViewModel.stepsData.sorted(by: { $0.key > $1.key }), id: \.key) { date, steps in
-			   stepsRow(date: date, steps: steps)
+			   dailyStepRow(date: date, steps: steps)
 			}
 		 }
+		 .padding(.horizontal)
 	  }
-	  .scrollContentBackground(.hidden)
-	  .frame(maxWidth: .infinity)
    }
    
-   private var listHeader: some View {
-	  HStack {
-		 Text("Date").frame(width: 100, alignment: .leading)
-		 Text("Steps").frame(width: 120, alignment: .trailing)
-		 Text("Change").frame(width: 120, alignment: .trailing)
-	  }
-	  .font(.system(size: 16, weight: .medium))
-	  .textCase(nil)
-	  .foregroundColor(.white)
-	  .listRowBackground(Color.blue.opacity(0.3))
-   }
-   
-   private func stepsRow(date: Date, steps: Double) -> some View {
-	  HStack(spacing: 6) {
-		 HStack(spacing: 6) {
+   private func dailyStepRow(date: Date, steps: Double) -> some View {
+	  HStack(spacing: 8) {
+			// Date
+		 HStack(spacing: 4) {
 			Image(systemName: "calendar.day.timeline.left")
 			   .foregroundColor(.blue)
-			   .font(.system(size: 14))
+			   .font(.system(size: 12))
 			Text(stepsViewModel.formattedDate(date))
 			   .lineLimit(1)
 			   .minimumScaleFactor(0.8)
 		 }
 		 .frame(width: 100, alignment: .leading)
-		 .font(.system(size: 16))
+		 .font(.system(size: 14))
 		 
-		 HStack(spacing: 6) {
+			// Steps count
+		 HStack(spacing: 4) {
 			Image(systemName: "figure.walk")
 			   .foregroundColor(.green)
-			   .font(.system(size: 14))
+			   .font(.system(size: 12))
 			Text(stepsViewModel.formattedNumber(steps))
 			   .lineLimit(1)
 		 }
-		 .frame(width: 120, alignment: .trailing)
-		 .font(.system(size: 16, weight: .medium))
+		 .frame(width: 100, alignment: .trailing)
+		 .font(.system(size: 14, weight: .medium))
 		 
+			// Change from previous day
 		 HStack(spacing: 4) {
 			Image(systemName: stepsViewModel.isStepsIncreasing(date: date) ? "arrow.up.circle.fill" : "arrow.down.circle.fill")
 			   .font(.system(size: 12))
@@ -304,15 +390,15 @@ struct StepsView: View {
 			   .minimumScaleFactor(0.8)
 		 }
 		 .foregroundColor(stepsViewModel.colorForDelta(date: date))
-		 .frame(width: 120, alignment: .trailing)
-		 .font(.system(size: 16))
+		 .frame(width: 100, alignment: .trailing)
+		 .font(.system(size: 14))
 	  }
-	  .frame(maxWidth: .infinity)
-	  .listRowBackground(
-		 stepsViewModel.stepsData.sorted(by: { $0.key > $1.key }).firstIndex(where: { $0.key == date }).map { $0 % 2 == 0 } ?? false
-		 ? Color.black.opacity(0.3)
-		 : Color.black.opacity(0.1)
+	  .padding(.vertical, 8)
+	  .padding(.horizontal, 12)
+	  .background(
+		 Color.white.opacity(0.05)
 	  )
+	  .cornerRadius(8)
    }
    
    private var refreshButton: some View {
@@ -329,21 +415,14 @@ struct StepsView: View {
 		 .background(Color.blue.opacity(0.8))
 		 .cornerRadius(25)
 	  }
-	  .padding(.vertical)
 	  .accessibilityLabel("Refresh step data")
 	  .accessibilityHint("Fetches latest step count from Health app")
    }
    
    private var versionInfo: some View {
-	  HStack {
-		 Image(systemName: "info.circle")
-		 Text("Version: \(stepsViewModel.appVersion)")
-	  }
-	  .font(.system(size: 14))
-	  .foregroundColor(.gray)
+	  AppConstants.VersionFooter()
    }
 }
-
 
 struct StepsView_Previews: PreviewProvider {
    static var previews: some View {
