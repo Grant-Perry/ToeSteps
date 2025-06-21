@@ -4,7 +4,7 @@
    //   Created by: Grant Perry on 6/15/25 at 4:25 PM
    //   Modified:
    //
-   //  Copyright © 2025 Cre8vPlanet Studios, LLC. - Grant Perry - all rights reserved.
+   //  Copyright 2025 Cre8vPlanet Studios, LLC. - Grant Perry - all rights reserved.
 
 import SwiftUI
 
@@ -359,18 +359,19 @@ struct QuickGoalButton: View {
 		 )
 		 goalManager.addGoal(newGoal)
 	  }) {
-		 VStack(spacing: 8) {
+		 VStack(spacing: 4) {
 			Text("\(steps)")
-			   .font(.title3)
+			   .font(.subheadline)
 			   .fontWeight(.bold)
 
 			Text(title)
-			   .font(.caption)
+			   .font(.caption2)
 		 }
 		 .foregroundColor(.white)
-		 .padding()
+		 .padding(.horizontal, 12)
+		 .padding(.vertical, 8)
 		 .background(Color.blue)
-		 .cornerRadius(10)
+		 .cornerRadius(8)
 	  }
    }
 }

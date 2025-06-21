@@ -5,6 +5,23 @@ struct StepsCard: View {
    let value: String
    let color: Color
    let icon: String
+   let subtitle: String?
+
+   init(title: String, value: String, color: Color, icon: String) {
+	  self.title = title
+	  self.value = value
+	  self.color = color
+	  self.icon = icon
+	  self.subtitle = nil
+   }
+
+   init(title: String, value: String, color: Color, icon: String, subtitle: String?) {
+	  self.title = title
+	  self.value = value
+	  self.color = color
+	  self.icon = icon
+	  self.subtitle = subtitle
+   }
 
    var body: some View {
 	  VStack(spacing: 12) {
@@ -17,9 +34,18 @@ struct StepsCard: View {
 			.font(.subheadline)
 			.foregroundColor(.gray)
 
-		 Text(value)
-			.font(.largeTitle)
-			.foregroundColor(color)
+		 VStack(spacing: 4) {
+			Text(value)
+			   .font(.largeTitle)
+			   .foregroundColor(color)
+
+
+			if let subtitle = subtitle {
+			   Text(subtitle)
+				  .font(.caption)
+				  .foregroundColor(.cyan)
+			}
+		 }
 	  }
 	  .frame(maxWidth: .infinity)
 	  .padding(.vertical, 20)
@@ -30,4 +56,3 @@ struct StepsCard: View {
 	  .accessibilityValue(value)
    }
 }
-
